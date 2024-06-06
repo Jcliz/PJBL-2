@@ -1,6 +1,6 @@
 #módulo para o login
 #   entrada: login e senha do usuário para autenticação
-#   saída: usuário autenticado com sucesso caso login e senha correpondam com a de cadastro
+#   saída: usuário autenticado com sucesso caso login e senha correspondam com a de cadastro
 def logar(login_usuario, senha_usuario):
     login = str(input('\nUsuário: '))
     senha = str(input('Senha: '))
@@ -24,14 +24,14 @@ def alugar_bike(credito, valor_locacao):
 #módulo para registrar o momento em que a bicicleta é alocada
 #   saída: adiciona à lista "locacoes" um dicionário que possui três chaves
 def registrar_locacao(locacoes, retirada, locacao_id):
-    locacoes.append({"numero": locacao_id, "retirada": retirada, "devolucao": None})
+    locacoes.append({"numero": locacao_id, "retirada": retirada, "devolucao": "nao"})
 
 #módulo para registrar a devolução da bicicleta
 #utiliza uma iteração para fazer uma comparação em relação ao dicionário, criado anteriormente, para cada bicicleta  
 #   saída: caso a comparação seja verdadeira o programa retorna True, caso contrário, False.
 def registrar_devolucao(locacoes, locacao_id, devolucao):
     for locacao in locacoes:
-        if locacao["numero"] == locacao_id and locacao["devolucao"] is None:
+        if locacao["numero"] == locacao_id and locacao["devolucao"] == "nao":
             locacao["devolucao"] = devolucao
             return True
     return False
@@ -119,7 +119,7 @@ while True:
     elif menu_usuario == '4':
         locacao_pendente = False
         for locacao in locacoes:
-            if locacao["devolucao"] is None:
+            if locacao["devolucao"] == "nao":
                 locacao_pendente = True
                 break
 
@@ -142,11 +142,10 @@ while True:
             #imprime o relatorio de usos de acordo com as chaves do dicionário
             for locacao in locacoes:
                 retirada = locacao["retirada"]
-                if locacao["devolucao"]:
+                if locacao["devolucao"] != "nao":
                     devolucao = locacao["devolucao"]
                     numero = locacao ["numero"]
                     print(f'Número: {numero}, Retirada: {retirada}, Devolução: {devolucao}')
-                    
                 else:
                     print("Bike ainda não devolvida.")
         else:
